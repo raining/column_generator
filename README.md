@@ -12,8 +12,8 @@ Column generator creates columns with selected items.
 - **itemTag[string]** (optional) - name of tag that wrapps each element of column (actual if **items** is an array of strings). Equals "li" by default.
 - **columnTag[string]** (optional) - name of tag that wraps each column. Equals "ul" by default.
 - **columnClass[string]** (optional) - name of css class that adds to each column.
-- **beforeItemAdd[function]** (optional) - callback function that runs before each element of column will added to DocumentFragment (may need for some customization each element of column separately and don't need to wait when all elements will added). Callback arguments: columnItem [object] (HTMLElement)
-- **onFinish[function]** (optional) - callback function that runs when all elements of columns and columns were added to DocumentFragment. Callback arguments: dFragment [object](cloned DocumentFragment), columnItems [object] (HTMLElement)
+- **beforeItemAdd[function]** (optional) - callback function that runs before each element of column will added to DocumentFragment (may need for some customization each element of column separately and don't need to wait when all elements will added). Callback arguments: columnItem [object] HTMLElement
+- **onFinish[function]** (optional) - callback function that runs when all elements of columns and columns were added to DocumentFragment. Callback arguments: dFragment [object](cloned DocumentFragment), columnItems [object] HTMLElement
 
 ### Usage example
 
