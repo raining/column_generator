@@ -11,9 +11,10 @@ var Columns = (function() {
 
   return function (options) {
     if (!options) {
-      throw new Error();
+      throw new Error("options must be defined");
     }
 
+    var items;
     var appendTo = "";
     var itemTag = "li";
     var columnTag = "ul";
@@ -32,39 +33,37 @@ var Columns = (function() {
       }
     }
 
+
     // validate options
     if (typeof(options) != 'object') {
-      throw new Error("wrong parameter");
+      throw new Error("options is not an object");
     }
 
     if (options.appendTo) {
       // validate appendTo: DOM Object
       if (typeof  options.appendTo == 'string') {
-        appendTo = $(options.appendTo);
+        appendTo = options.appendTo;
       } else {
-        throw new Error();
+        throw new Error("appendTo is not a string");
       }
-    } else {
-      // when the script calls
     }
 
     if (options.items) {
       // validate items:Array
       if (isArray(options.items) || typeof options.items == 'object') {
-        var items = options.items;
+        items = options.items;
       } else {
-        throw new Error();
+        throw new Error("items must be object or array");
       }
-    } else {
-      throw new Error();
-    }
+    } else throw new Error("items must be defined");
+
 
     if (options.itemTag && isArray(options.items)) {
       //validate itemTag:String
       if (typeof options.itemTag == "string") {
         itemTag = options.itemTag;
       } else {
-        throw new Error();
+        throw new Error("itemTag is not a string");
       }
     }
 
@@ -73,7 +72,7 @@ var Columns = (function() {
       if (typeof options.columnTag == "string") {
         columnTag = options.columnTag;
       } else {
-        throw new Error();
+        throw new Error("columnTag is not a string");
       }
     }
 
@@ -82,7 +81,7 @@ var Columns = (function() {
       if (typeof options.itemClass == "string") {
         itemClass = options.itemClass;
       } else {
-        return new Error();
+        return new Error("itemClass must be a string");
       }
     }
 
@@ -91,7 +90,7 @@ var Columns = (function() {
       if (typeof options.columnClass == "string") {
         columnClass = options.columnClass;
       } else {
-        return new Error();
+        return new Error("columnClass must be a string");
       }
     }
 
@@ -100,17 +99,16 @@ var Columns = (function() {
       if (typeof options.startIndex == "number") {
         startIndex = options.startIndex;
       } else {
-        return new Error();
+        return new Error("startIndex must be a number");
       }
     }
-
 
     if (options.maxItems) {
       //validate maxItems: Number
       if (typeof options.maxItems == "number") {
         maxItems = options.maxItems;
       } else {
-        return new Error();
+        return new Error("maxItems must be a number");
       }
     }
 
@@ -119,17 +117,13 @@ var Columns = (function() {
       if (typeof options.maxCols == "number") {
         maxCols = options.maxCols;
       } else {
-        return new Error();
+        return new Error("maxCols must be a number");
       }
     }
 
     if (!options.maxCols && !options.maxItems) {
       return new Error("maxCols and (or) maxItems must be defined");
     }
-
-
-    // если элемент массива строка, то оборачиваем сами и учитываем columnTag (ul) и itemTag(li)
-    // если элемент массива объект то оборачивать не надо и колонки columnTag(ul или заданный)
 
     var documentFragment = document.createDocumentFragment();
     for (var i = startIndex; i < items.length; ) {
@@ -147,22 +141,17 @@ var Columns = (function() {
         $column.setAttribute("class", columnClass);
 
         for (var k = 0; k < imaxItems; k++) {
+          var $columnItem;
           if (!items[i]) break;
           else {
-
-            var $columnItem;
-
             if (typeof items[0] == "string") {
-              // оборачиваем в теги и вешаем классы
               $columnItem = document.createElement(itemTag);
               $columnItem.setAttribute("class", itemClass);
               $columnItem.textContent = items[i];
             } else if (typeof items[0] == 'object') {
-              // оборачивать не надо а просто добавить в колонку
               $columnItem = items[i];
             }
             columnItems.push($columnItem);
-
 
             if (options.beforeItemAdd && typeof options.beforeItemAdd == 'function') {
               options.beforeItemAdd($columnItem);
@@ -182,16 +171,15 @@ var Columns = (function() {
 
 
     if (options.appendTo && typeof options.appendTo == 'string') {
-      var tmp = documentFragment.cloneNode(true);
       var type = options.appendTo.substring(0, 1);
       if (type == ".") {
-        document.getElementsByClassName(options.appendTo.substring(1)).item(0).appendChild(tmp);
+        document.getElementsByClassName(options.appendTo.substring(1)).item(0).appendChild(documentFragment);
       }
       else if (type == '#') {
-        document.getElementById(options.appendTo.substring(1)).item(0).appendChild(tmp);
+        document.getElementById(options.appendTo.substring(1)).item(0).appendChild(documentFragment);
       }
       else {
-        document.getElementsByTagName(options.appendTo).item(0).appendChild(tmp);
+        document.getElementsByTagName(options.appendTo).item(0).appendChild(documentFragment);
       }
     }
 
