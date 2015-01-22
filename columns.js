@@ -138,7 +138,7 @@ var Columns = (function() {
 
       for (var j = 0; j < imaxCols; j++) {
         var $column = document.createElement(columnTag);
-        if (columnClass!= "") $column.setAttribute("class", columnClass);
+        if (columnClass != "") $column.setAttribute("class", columnClass);
 
         for (var k = 0; k < imaxItems; k++) {
           var $columnItem;
