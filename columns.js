@@ -136,22 +136,22 @@ var Columns = (function() {
       imaxItems = Math.ceil(items.length / maxCols);
     }
 
-    var i = startIndex;
-    var j, k;
-    for (j = 0; j < imaxCols; j++) {
+    var item = startIndex;
+    var col, row;
+    for (col = 0; col < imaxCols; col++) {
       var $column = document.createElement(columnTag);
       if (columnClass != "") $column.setAttribute("class", columnClass);
 
-      for (k = 0; k < imaxItems; k++) {
+      for (row = 0; row < imaxItems; row++) {
         var $columnItem;
-        if (!items[i]) break;
+        if (!items[item]) break;
         else {
           if (typeof items[0] == "string") {
             $columnItem = document.createElement(itemTag);
             if (itemClass != "") $columnItem.setAttribute("class", itemClass);
-            $columnItem.textContent = items[i];
+            $columnItem.textContent = items[item];
           } else if (typeof items[0] == 'object') {
-            $columnItem = items[i];
+            $columnItem = items[item];
           }
           columnItems.push($columnItem);
 
@@ -161,7 +161,7 @@ var Columns = (function() {
 
           $column.appendChild($columnItem);
           documentFragment.appendChild($column);
-          i++;
+          item++;
         }
       }
     }
