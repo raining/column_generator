@@ -126,41 +126,42 @@ var Columns = (function() {
     }
 
     var documentFragment = document.createDocumentFragment();
-    for (var i = startIndex; i < items.length; ) {
-      var imaxCols = maxCols, imaxItems = maxItems;
 
-      if (maxItems && !maxCols) {
-        imaxCols = Math.ceil(items.length / maxItems);
-      }
-      else if (!maxItems && maxCols) {
-        imaxItems = Math.ceil(items.length / maxCols);
-      }
+    var imaxCols = maxCols, imaxItems = maxItems;
 
-      for (var j = 0; j < imaxCols; j++) {
-        var $column = document.createElement(columnTag);
-        if (columnClass != "") $column.setAttribute("class", columnClass);
+    if (maxItems && !maxCols) {
+      imaxCols = Math.ceil(items.length / maxItems);
+    }
+    else if (!maxItems && maxCols) {
+      imaxItems = Math.ceil(items.length / maxCols);
+    }
 
-        for (var k = 0; k < imaxItems; k++) {
-          var $columnItem;
-          if (!items[i]) break;
-          else {
-            if (typeof items[0] == "string") {
-              $columnItem = document.createElement(itemTag);
-              if (itemClass != "") $columnItem.setAttribute("class", itemClass);
-              $columnItem.textContent = items[i];
-            } else if (typeof items[0] == 'object') {
-              $columnItem = items[i];
-            }
-            columnItems.push($columnItem);
+    var i = startIndex;
+    var j, k;
+    for (j = 0; j < imaxCols; j++) {
+      var $column = document.createElement(columnTag);
+      if (columnClass != "") $column.setAttribute("class", columnClass);
 
-            if (options.beforeItemAdd && typeof options.beforeItemAdd == 'function') {
-              options.beforeItemAdd($columnItem);
-            }
-
-            $column.appendChild($columnItem);
-            documentFragment.appendChild($column);
-            i++;
+      for (k = 0; k < imaxItems; k++) {
+        var $columnItem;
+        if (!items[i]) break;
+        else {
+          if (typeof items[0] == "string") {
+            $columnItem = document.createElement(itemTag);
+            if (itemClass != "") $columnItem.setAttribute("class", itemClass);
+            $columnItem.textContent = items[i];
+          } else if (typeof items[0] == 'object') {
+            $columnItem = items[i];
           }
+          columnItems.push($columnItem);
+
+          if (options.beforeItemAdd && typeof options.beforeItemAdd == 'function') {
+            options.beforeItemAdd($columnItem);
+          }
+
+          $column.appendChild($columnItem);
+          documentFragment.appendChild($column);
+          i++;
         }
       }
     }
