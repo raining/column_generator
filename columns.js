@@ -138,7 +138,7 @@ var Columns = (function() {
 
       for (var j = 0; j < imaxCols; j++) {
         var $column = document.createElement(columnTag);
-        $column.setAttribute("class", columnClass);
+        if (columnClass!= "") $column.setAttribute("class", columnClass);
 
         for (var k = 0; k < imaxItems; k++) {
           var $columnItem;
@@ -146,7 +146,7 @@ var Columns = (function() {
           else {
             if (typeof items[0] == "string") {
               $columnItem = document.createElement(itemTag);
-              $columnItem.setAttribute("class", itemClass);
+              if (itemClass != "") $columnItem.setAttribute("class", itemClass);
               $columnItem.textContent = items[i];
             } else if (typeof items[0] == 'object') {
               $columnItem = items[i];
