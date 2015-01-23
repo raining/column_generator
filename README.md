@@ -3,13 +3,13 @@
 Column generator creates columns with selected items.
 
 ### Parameters:
-- **items [string|object]** - selected items
+- **items [array]** - selected items, array item type: string|object
 - **maxItems [number]** (optional) - maximum amount of items in one column
 - **maxCols [number]** (optional) - maximum columns. Either **maxItems** or **maxCols** or both must be defined.
 - **startIndex [number]** (optional) - start at 0 by default or from defined index (actual if **items** is an array of strings).
 - **appendTo [string]** (optional) - target element. Script will append generated columns to it. If not defined, script will return DocumentFragment.
 - **itemClass[string]** (optional) - name of css class that appends to element of each column.
-- **itemTag[string]** (optional) - name of tag that wrapps each element of column (actual if **items** is an array of strings). Equals "li" by default.
+- **itemTag[string]** (optional) - name of tag that wrapped each element of column (actual if **items** is an array of strings). Equals "li" by default.
 - **columnTag[string]** (optional) - name of tag that wraps each column. Equals "ul" by default.
 - **columnClass[string]** (optional) - name of css class that adds to each column.
 - **beforeItemAdd[function]** (optional) - callback function that runs before each element of column will added to DocumentFragment (may need for some customization each element of column separately and don't need to wait when all elements will added). Callback arguments: columnItem [object] HTMLElement
@@ -17,15 +17,15 @@ Column generator creates columns with selected items.
 
 ### Usage example
 
-twig + js
+Using twig for template
 
 ```twig
 ...
 <div class='badge'></div>
-{% set elements = ["apple", "orange", "cinnamon", "grape", 
+{% set elements = ["apple", "orange", "cinnamon", "grape",
 "apricot", "peach", "cranberry", "lemon", "pineapple"] %}
 {% for element in elements %}
-   <div class="fruit"> {{ element }} </div>
+   <li class="fruit"> {{ element }} </div>
 {% endfor %}
 ```
 
@@ -47,18 +47,16 @@ var options = {
        }
        textItems.sort();
 
-       console.log(textItems);
-
-       $(items).eq(0).html("<strong>" +
-       textItems[0].substring(0, 1).toUpperCase() + "</strong>" + textItems[0].substring(1));
+       $(items).eq(0).html("<span class='bold'>" +
+       textItems[0].substring(0, 1).toUpperCase() + "</span>" + textItems[0].substring(1));
        for (var i = 1; i < items.length; i++) {
            $(items).eq(i).text(textItems[i]);
            var current = textItems[i];
            var next = textItems[i - 1];
 
            if (current.substring(0, 1) != next.substring(0, 1)) {
-               $(items).eq(i).html("<strong>" + current.substring(0, 1).toUpperCase()
-               + "</strong>" + current.substring(1));
+               $(items).eq(i).html("<span class='bold'>" + current.substring(0, 1).toUpperCase()
+               + "</span>" + current.substring(1));
            }
        }
    }
@@ -72,23 +70,23 @@ The result will be
 ```html
 <div class="badge">
    <ul>
-      <div class="fruit before_added"><strong>A</strong>pple</div>
-      <div class="fruit before_added">apricot</div>
+      <li class="fruit before_added"><strong>A</strong>pple</li>
+      <li class="fruit before_added">apricot</li>
    </ul>
    <ul>
-      <div class="fruit before_added"><strong>C</strong>innamon</div>
-      <div class="fruit before_added">cranberry</div>
+      <li class="fruit before_added"><strong>C</strong>innamon</li>
+      <li class="fruit before_added">cranberry</li>
    </ul>
    <ul>
-      <div class="fruit before_added"><strong>G</strong>rape</div>
-      <div class="fruit before_added"><strong>L</strong>emon</div>
+      <li class="fruit before_added"><strong>G</strong>rape</li>
+      <li class="fruit before_added"><strong>L</strong>emon</li>
    </ul>
    <ul>
-      <div class="fruit before_added"><strong>O</strong>range</div>
-      <div class="fruit before_added"><strong>P</strong>each</div>
+      <li class="fruit before_added"><strong>O</strong>range</li>
+      <li class="fruit before_added"><strong>P</strong>each</li>
    </ul>
    <ul>
-      <div class="fruit before_added">pineapple</div>
+      <li class="fruit before_added">pineapple</li>
    </ul>
 </div>
 ```
