@@ -1,9 +1,9 @@
 ## column_generator
 
-Column generator creates columns with selected items.
+Column generator creates columns with selected items. Written on pure JS, using DOM API.
 
 ### Parameters:
-- **items [array]** - selected items, array item type: string|object
+- **items [array]** - selected items, array item type: string|object (jquery object or DOM element)
 - **maxItems [number]** (optional) - maximum amount of items in one column
 - **maxCols [number]** (optional) - maximum columns. Either **maxItems** or **maxCols** or both must be defined.
 - **startIndex [number]** (optional) - start at 0 by default or from defined index (actual if **items** is an array of strings).
