@@ -17,7 +17,7 @@ Column generator creates columns with selected items. Written on pure JS, using 
 
 ### Usage example
 
-Using twig for template
+Using twig for template (for example, you can use any template or no one)
 
 ```twig
 ...
