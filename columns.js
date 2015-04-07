@@ -1,11 +1,14 @@
-/*
+/**
  * Column generator and creating categories by alphabetical order and bold every new alphabet letter
- *
- * @author Khurtina Ekaterina
- *
- * */
+ * @module Column generator
+ * @author Katy Khurtina
+ * @since Jan, 2014
+ * @version 1
+ */
 
-var Columns = (function() {
+var Columns;
+
+if (!Columns) Columns = (function() {
 
   'use strict';
 
